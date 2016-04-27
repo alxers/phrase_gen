@@ -1,7 +1,8 @@
 // (function () {
 
-  // Preload images
+  // Preload images (setTimeout for slideshow, not by button)
   // Use ES6
+  // clean up code
   // Use React?
 
 function loadJSON(callback) {   
@@ -42,7 +43,7 @@ init();
 
 
   var BGCHANGELIMIT = 11;
-  var IMAGESNUM = 21;
+  var IMAGESNUM = 22;
 
   var bgs = createBg('bg', IMAGESNUM, 'png');
   var bgs_len = bgs.length;
@@ -63,10 +64,6 @@ init();
                           ADJ[randNumFromArray(adj_len)] + ' ' +
                           ADJ[randNumFromArray(adj_len)] + ' ' +
                           NOUNS[randNumFromArray(noun_len)];
-    if (btnClicks === BGCHANGELIMIT) {
-      btnClicks = 0;
-      randBgImage();
-    }
   }
 
   function createBg(name, num, ext) {
@@ -76,15 +73,42 @@ init();
     });
   }
 
-  function preload() {
-    var images = new Array()
-        for (i = 0; i < preload.arguments[0].length; i++) {
-          images[i] = new Image()
-          images[i].src = 'img/' + preload.arguments[0][i];
-        }
-      }
+    function loadSprite(src, callback) {
+        var sprite = new Image();
+        sprite.onload = callback;
+        sprite.src = src;
+    }
 
-      preload(bgs);
+    var loadedImgs = [];
+    function preloadImgs(imgs) {
+      for (i = 0; i < imgs.length; i++) {
+        var imgSrc = 'img/' + imgs[i];
+        loadSprite(imgSrc, function() {
+          console.log('done ', imgSrc);
+          return loadedImgs.push(imgSrc);
+        });
+      }
+    }
+
+
+  preloadImgs(bgs);
+
+  function prepareImages(img) {
+    var imgs = imgs ? imgs : [];
+    console.log('tick', imgs);
+    return imgs.push(img);
+  }
+
+  function startSlideShow() {
+    setInterval(function() {
+      console.log('tick');
+      if (loadedImgs.length === bgs.length) {
+        randBgImage();
+      }
+    }, 10000)
+  }
+
+  startSlideShow();
 
   function randNumFromArray(len) {
     return parseInt(Math.random() * len);
