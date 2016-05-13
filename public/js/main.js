@@ -8,11 +8,14 @@
   // Add 'likes' and 'top' ?
   // Add clicks counter ?
 
+// Change to words_example.json for testing purposes
+const WORDS_FILE_NAME = 'words.json'
+
 function loadJSON(callback) {   
 
   var xobj = new XMLHttpRequest();
       xobj.overrideMimeType("application/json");
-  xobj.open('GET', 'words.json', true);
+  xobj.open('GET', WORDS_FILE_NAME, true);
   xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
           // Required use of an anonymous callback as .open will NOT return a value but simply
