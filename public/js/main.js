@@ -7,6 +7,21 @@
   const PERSONAL_MESSAGE = 'you are';
   const IMAGES_NUM = 16;
 
+  let words;
+  let adj;
+  let nouns;
+  let adj_len;
+  let noun_len;
+
+  let loadedImgs = [];
+
+  let bodyEl = document.getElementsByTagName('body')[0];
+  let contentEl = document.getElementById('content');
+  let generatorEl = document.getElementById('generator');
+  let preloadEl = document.getElementById('preload');
+
+  let bgs = createBg('bg', IMAGES_NUM, 'png');
+
   function loadJSON(callback) {   
 
     let xmlhttp = new XMLHttpRequest();
@@ -19,15 +34,6 @@
     };
     xmlhttp.send(null);  
   }
-
-  var words;
-  var adj_len,
-      noun_len;
-
-  var adj,
-      nouns;
-
-  var loadedImgs = [];
 
   function init() {
    loadJSON(function(response) {
@@ -42,40 +48,29 @@
 
   init();
 
-  var bgs = createBg('bg', IMAGES_NUM, 'png');
-  var bgs_len = bgs.length;
-
-  var btnClicks = 0;
-
-  var doc = document,
-      body = doc.getElementsByTagName('body')[0],
-      content = doc.getElementById('content'),
-      generator = doc.getElementById('generator'),
-      preloadEl = doc.getElementById('preload');
-
   // Functions
 
   function generate() {
-    content.textContent = `${PERSON_NAME} ${PERSONAL_MESSAGE} ${adj[randNumFromArray(adj_len)]}
+    contentEl.textContent = `${PERSON_NAME} ${PERSONAL_MESSAGE} ${adj[randNumFromArray(adj_len)]}
                            ${adj[randNumFromArray(adj_len)]} ${nouns[randNumFromArray(noun_len)]}`;
   }
 
   function createBg(name, num, ext) {
-    var arr = Array.apply(null, Array(num));
+    let arr = Array.apply(null, Array(num));
     return arr.map(function (x, i) {
       return name + (i + 1) + '.' + ext;
     });
   }
 
   function loadImg(src, callback) {
-      var img = new Image();
+      let img = new Image();
       img.onload = callback;
       img.src = src;
   }
 
   function preloadImgs(imgs) {
     for (let i = 0; i < imgs.length; i++) {
-      var imgSrc = 'img/' + imgs[i];
+      let imgSrc = 'img/' + imgs[i];
       loadImg(imgSrc, function() {
         console.log('done ', imgSrc);
         return loadedImgs.push(imgSrc);
@@ -87,7 +82,7 @@
   preloadImgs(bgs);
 
   function prepareImages(img) {
-    var imgs = imgs ? imgs : [];
+    let imgs = imgs ? imgs : [];
     console.log('tick', imgs);
     return imgs.push(img);
   }
@@ -108,12 +103,12 @@
   }
 
   function randBgImage() {
-    var imageUrl = 'img/' + bgs[randNumFromArray(bgs_len)];
-    body.style.backgroundImage = 'url(' + imageUrl + ')';
+    let imageUrl = 'img/' + bgs[randNumFromArray(bgs.length)];
+    bodyEl.style.backgroundImage = 'url(' + imageUrl + ')';
   }
 
   // Event listeners
 
-  generator.addEventListener("click", generate, false);
+  generatorEl.addEventListener("click", generate, false);
 
 }
