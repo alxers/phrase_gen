@@ -10,8 +10,8 @@
   let words;
   let adj;
   let nouns;
-  let adj_len;
-  let noun_len;
+  let adjLen;
+  let nounLen;
 
   let loadedImgs = [];
 
@@ -41,8 +41,8 @@
       adj = words['adjectives'];
       nouns = words['nouns'];
 
-      adj_len = words['adjectives'].length;
-      noun_len = words['nouns'].length;
+      adjLen = words['adjectives'].length;
+      nounLen = words['nouns'].length;
    });
   }
 
@@ -51,8 +51,8 @@
   // Functions
 
   function generate() {
-    contentEl.textContent = `${PERSON_NAME} ${PERSONAL_MESSAGE} ${adj[randNumFromArray(adj_len)]}
-                           ${adj[randNumFromArray(adj_len)]} ${nouns[randNumFromArray(noun_len)]}`;
+    contentEl.textContent = `${PERSON_NAME} ${PERSONAL_MESSAGE} ${adj[randNumFromArray(adjLen)]}
+                           ${adj[randNumFromArray(adjLen)]} ${nouns[randNumFromArray(nounLen)]}`;
   }
 
   function createBg(name, num, ext) {
