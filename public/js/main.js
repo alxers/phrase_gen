@@ -20,7 +20,7 @@
   let generatorEl = document.getElementById('generator');
   let preloadEl = document.getElementById('preload');
 
-  let bgs = createBg('bg', IMAGES_NUM, 'png');
+  let bgs = createBg('bg', IMAGES_NUM, 'jpg');
 
   function loadJSON(callback) {   
 
