@@ -1,10 +1,24 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
+  display: flex;
   text-align: center;
   background: url('../img/bg8.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #ffffff;
   font-family: helvetica;
   transition: background 300ms ease-in 200ms;
+  margin: 0;
+  padding: 0;
 }
 
 .bg-img {
@@ -12,23 +26,19 @@ body {
 }
 
 .center {
-  height: 30%;
-  width: 50%;
   margin: auto;
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
 }
 
 #content {
-  position: relative;
+  height: 3.5em;
   text-align: center;
   text-shadow: 1px 1px 1px #000;
   font-size: 1.9em;
-  height: 40px;
+  padding: 20px;
+  margin: 0;
 }
 
 button {
-  margin-top: 30px;
   background: #f26c4e;
   font-size: 1.125em;
   color: #ffffff;
@@ -42,8 +52,15 @@ button:hover {
   background: #fd8a70;
 }
 
+
+@media (max-width: 737px) {
+  #content {
+    height: 4.5em;
+  }
+}
+
 @media (max-width: 500px) {
   #content {
-    top: -80%;
+    height: 7em;
   }
 }
