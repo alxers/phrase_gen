@@ -1,27 +1,28 @@
-var WORDS_FILE_NAME = 'words_example.json';
-var PERSON_NAME = '%username%';
-var PERSONAL_MESSAGE = 'you are';
+'use strict';
 
-var IMAGES_NUM = 16;
+const WORDS_FILE_NAME = 'words_example.json';
+const PERSON_NAME = '%username%';
+const PERSONAL_MESSAGE = 'you are';
+const IMAGES_NUM = 16;
 
-var words;
-var adj;
-var nouns;
-var adjLen;
-var nounLen;
+let words;
+let adj;
+let nouns;
+let adjLen;
+let nounLen;
 
-var loadedImgs = [];
+let loadedImgs = [];
 
-var bodyEl = document.getElementsByTagName('body')[0];
-var contentEl = document.getElementById('content');
-var generatorEl = document.getElementById('generator');
-var preloadEl = document.getElementById('preload');
+let bodyEl = document.getElementsByTagName('body')[0];
+let contentEl = document.getElementById('content');
+let generatorEl = document.getElementById('generator');
+let preloadEl = document.getElementById('preload');
 
-var bgs = createBg('bg', IMAGES_NUM, 'jpg');
+let bgs = createBg('bg', IMAGES_NUM, 'jpg');
 
 function loadJSON(callback) {   
 
-  var xmlhttp = new XMLHttpRequest();
+  let xmlhttp = new XMLHttpRequest();
       xmlhttp.overrideMimeType("application/json");
   xmlhttp.open('GET', WORDS_FILE_NAME, true);
   xmlhttp.onreadystatechange = function () {
@@ -53,21 +54,21 @@ function generate() {
 }
 
 function createBg(name, num, ext) {
-  var arr = Array.apply(null, Array(num));
+  let arr = Array.apply(null, Array(num));
   return arr.map(function (x, i) {
     return name + (i + 1) + '.' + ext;
   });
 }
 
 function loadImg(src, callback) {
-    var img = new Image();
+    let img = new Image();
     img.onload = callback;
     img.src = src;
 }
 
 function preloadImgs(imgs) {
-  for (var i = 0; i < imgs.length; i++) {
-    var imgSrc = 'img/' + imgs[i];
+  for (let i = 0; i < imgs.length; i++) {
+    let imgSrc = 'img/' + imgs[i];
     loadImg(imgSrc, function() {
       console.log('done ', imgSrc);
       return loadedImgs.push(imgSrc);
@@ -79,7 +80,7 @@ function preloadImgs(imgs) {
 preloadImgs(bgs);
 
 function prepareImages(img) {
-  var imgs = imgs ? imgs : [];
+  let imgs = imgs ? imgs : [];
   console.log('tick', imgs);
   return imgs.push(img);
 }
@@ -100,7 +101,7 @@ function randNumFromArray(len) {
 }
 
 function randBgImage() {
-  var imageUrl = 'img/' + bgs[randNumFromArray(bgs.length)];
+  let imageUrl = 'img/' + bgs[randNumFromArray(bgs.length)];
   bodyEl.style.backgroundImage = 'url(' + imageUrl + ')';
 }
 
