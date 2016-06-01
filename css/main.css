@@ -12,7 +12,7 @@ html, body {
 body {
   display: flex;
   text-align: center;
-  background: url('../img/bg8.jpg') no-repeat center center fixed;
+  background: url('../img/bg1.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #ffffff;
   font-family: helvetica;
