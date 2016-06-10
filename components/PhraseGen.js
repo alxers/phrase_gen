@@ -1,31 +1,16 @@
 class PhraseGen extends React.Component {
-  render() {
-    return (
-      <Generator data="data" />
-    );
-  }
-}
 
-class Generator extends PhraseGen {
   constructor() {
     super();
-    
-    const WORDS_FILE_NAME = 'words_example.json';
-    const PERSON_NAME = '%username%';
-    const PERSONAL_MESSAGE = 'you are';
-    const IMAGES_NUM = 16;
 
-    let words;
-    let adj;
-    let nouns;
-    let adjLen;
-    let nounLen;
+    this.fileName = 'words_example.json';
+    this.state = { data: [] };
   }
 
   loadJSON(callback) {   
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.overrideMimeType("application/json");
-    xmlhttp.open('GET', WORDS_FILE_NAME, true);
+    xmlhttp.open('GET', this.fileName, true);
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4 && xmlhttp.status == "200") {
         callback(xmlhttp.responseText);
@@ -34,21 +19,53 @@ class Generator extends PhraseGen {
     xmlhttp.send(null);  
   }
 
-  init() {
-   loadJSON(function(response) {
-      words = JSON.parse(response);
-      adj = words['adjectives'];
-      nouns = words['nouns'];
-
-      adjLen = words['adjectives'].length;
-      nounLen = words['nouns'].length;
+  getData() {
+   this.loadJSON((response) => {
+      this.setState({ data: [JSON.parse(response)] });
    });
+  }
+
+  componentDidMount() {
+    this.getData();
   }
 
   render() {
     return (
+      <Generator data={ this.state.data } />
+    );
+  }
+}
+
+class Generator extends PhraseGen {
+  constructor() {
+    super();
+    
+    this.personName = '%username%';
+    this.personalMessage = 'you are';
+    this.imagesNum = 16;
+
+    this.adj = [];
+    this.nouns = [];
+
+  }
+
+  randNumFromArray(len) {
+    return parseInt(Math.random() * len);
+  }
+
+  render() {
+    let content = this.props.data.map((words) => {
+      return words;
+    });
+
+    let adj = content['adjectives'];
+    let nouns = content['nouns'];
+
+    return (
       <div className="center">
-        <p id="content">{this.props.data}</p>
+        <p id="content"><span>{ `${this.personName} ${this.personalMessage} 
+                                 ${adj[this.randNumFromArray(adj.length)]} ${adj[this.randNumFromArray(adj.length)]}
+                                 ${nouns[this.randNumFromArray(nouns.length)]}` }</span></p>
         <button id="generator">Create</button>
       </div>
     );
