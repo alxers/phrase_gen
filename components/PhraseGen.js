@@ -44,32 +44,49 @@ class Generator extends PhraseGen {
     this.personalMessage = 'you are';
     this.imagesNum = 16;
 
-    this.adj = [];
-    this.nouns = [];
-
+    this.state = { phrase: '' };
   }
 
   randNumFromArray(len) {
     return parseInt(Math.random() * len);
   }
 
+  handleClick(content) {
+    let adj = content['adjectives'];
+    let nouns = content['nouns'];
+    // TODO: fix Warning: setState(...): Can only update a mounted or mounting component.
+    // This usually means you called setState() on an unmounted component.
+    // This is a no-op. Please check the code for the undefined component.
+    this.setState({ phrase: `${adj[this.randNumFromArray(adj.length)]} ${adj[this.randNumFromArray(adj.length)]}
+                             ${nouns[this.randNumFromArray(nouns.length)]}` });
+  }
+
   render() {
     let content = this.props.data.map((words) => {
       return words;
-    });
-
-    let adj = content['adjectives'];
-    let nouns = content['nouns'];
+    })[0];
 
     return (
       <div className="center">
-        <p id="content"><span>{ `${this.personName} ${this.personalMessage} 
-                                 ${adj[this.randNumFromArray(adj.length)]} ${adj[this.randNumFromArray(adj.length)]}
-                                 ${nouns[this.randNumFromArray(nouns.length)]}` }</span></p>
-        <button id="generator">Create</button>
+        <p id="content">{ `${this.personName} ${this.personalMessage} ${this.state.phrase}` }</p>
+        <button id="generator" onClick={ this.handleClick.bind(this, content) }>Create</button>
       </div>
     );
   }
 }
+
+// class Content extends Generator {
+//   constructor() {
+//     super();
+
+//     this.state = { phrase: '' };
+//   }
+
+//   render() {
+//     return (
+//       <p id="content">{ this.state.phrase }</p>
+//     );
+//   }
+// }
 
 window.App.PhraseGen = PhraseGen;
