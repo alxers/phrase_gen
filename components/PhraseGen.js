@@ -51,26 +51,29 @@ class Generator extends PhraseGen {
     return parseInt(Math.random() * len);
   }
 
-  handleClick(content) {
-    let adj = content['adjectives'];
-    let nouns = content['nouns'];
-    // TODO: fix Warning: setState(...): Can only update a mounted or mounting component.
-    // This usually means you called setState() on an unmounted component.
-    // This is a no-op. Please check the code for the undefined component.
+  handleClick(words) {
+    let adj = words['adjectives'];
+    let nouns = words['nouns'];
+
     this.setState({ phrase: `${adj[this.randNumFromArray(adj.length)]} ${adj[this.randNumFromArray(adj.length)]}
                              ${nouns[this.randNumFromArray(nouns.length)]}` });
   }
 
   render() {
-    let content = this.props.data.map((words) => {
+    let words = this.props.data.map((words) => {
       return words;
     })[0];
 
+    let content = <div></div>;
+    if (words) {
+      content = <div>
+                  <p className="result">{ `${this.personName} ${this.personalMessage} ${this.state.phrase}` }</p>
+                  <button className="generator" onClick={ this.handleClick.bind(this, words) }>Create</button>
+                </div>
+    }
+
     return (
-      <div className="center">
-        <p id="content">{ `${this.personName} ${this.personalMessage} ${this.state.phrase}` }</p>
-        <button id="generator" onClick={ this.handleClick.bind(this, content) }>Create</button>
-      </div>
+      content
     );
   }
 }

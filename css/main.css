@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -21,15 +22,17 @@ body {
   padding: 0;
 }
 
+.main-content {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
 .bg-img {
   background-size: contain;
 }
 
-.center {
-  margin: auto;
-}
-
-#content {
+.result {
   height: 3.5em;
   text-align: center;
   text-shadow: 1px 1px 1px #000;
@@ -54,13 +57,13 @@ button:hover {
 
 
 @media (max-width: 737px) {
-  #content {
+  .result {
     height: 4.5em;
   }
 }
 
 @media (max-width: 500px) {
-  #content {
+  .result {
     height: 7em;
   }
 }
